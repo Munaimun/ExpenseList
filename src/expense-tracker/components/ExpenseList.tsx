@@ -1,5 +1,6 @@
 import React from "react";
 
+//defining the shape of props
 interface Expense {
   id: number;
   description: string;
@@ -11,8 +12,9 @@ interface Props {
   expenses: Expense[];
   onDelete: (id: number) => void;
 }
-
+//functional component passing with props
 const ExpenseList = ({ expenses, onDelete }: Props) => {
+  //remove the table if there is no expense
   if (expenses.length === 0) return null;
 
   return (
@@ -27,14 +29,16 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           </tr>
         </thead>
         <tbody>
+          {/* mapping the object from the props to show in the UI */}
           {expenses.map((expense) => (
             <tr key={expense.id}>
-              <td>{expense.description}</td>
-              <td>{expense.amount}</td>
+              <td> {expense.description} </td>
+              <td> {expense.amount} </td>
               <td>{expense.category}</td>
               <td>
                 <button
                   className="btn btn-outline-danger"
+                  // pass the id to handle the delete function
                   onClick={() => onDelete(expense.id)}
                 >
                   Delete
@@ -47,11 +51,10 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           <tr>
             <td>Total</td>
             <td>
-              $
+              {/* reduce method for total amount */}$
               {expenses
                 .reduce((acc, expense) => expense.amount + acc, 0)
-                .toFixed(2)}{" "}
-              {/* toFixed is used to show two digits after (.) */}
+                .toFixed(2)}
             </td>
             <td></td>
             <td></td>
